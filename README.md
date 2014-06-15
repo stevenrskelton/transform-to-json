@@ -45,16 +45,13 @@ Polymer Web Component for transforming any text data to JSON:
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`input`				| *string*		| `null`		| Input text to parse
+`input`				| *string*		| `null`		| Input text to parse (usually populated via `url` or inlined content
+`url`				| *string*		| `null`		| URL of data input
 `json`				| *object*		| `null`		| Parsed data output
 `format`			| *string*		| tsv			| Format of `input`, allowed values are __csv__,__tsv__,__ssv__,__fixed__
 `array`				| *boolean*		| `false`		| If true, output row fields as an array rather than JSON object (drops field names)
 
 The is also a `jsonchanged` event that will fire whenever `json` changes.  This approach so be used whenever `input` is loaded asynchronously via [AJAX](#ajax).
-
-## AJAX
-
-The typical `input` will be stored in a separate file or resource - Polymer's [core-ajax](http://www.polymer-project.org/components/core-docs/index.html#core-ajax) web component is very useful for this.
 
 ## Todo
 

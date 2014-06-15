@@ -6,7 +6,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<script src="../../platform/platform.js"></script>
 	<link rel="import" href="../transform-to-json.html">
-	<link rel="import" href="../../core-ajax/core-ajax.html">
 	<link rel="import" href="index-links.html">
 	<style>
 		.output {
@@ -22,15 +21,13 @@
 <body unresolved>
 	<h1>Tab Separated Values (TSV)</h1>
 
-	<core-ajax id="ajax" auto url="rawdata_2001.txt" handleAs="text"></core-ajax>
-
 	<h3>JSON Output</h3>
 	<div id="jsonoutput" class="output"></div>
-	<transform-to-json id="jsontransformer" format="tsv"></transform-to-json>
+	<transform-to-json id="jsontransformer" format="tsv" url="rawdata_2001.txt"></transform-to-json>
 
 	<h3>Array Output</h3>
 	<div id="arrayoutput" class="output"></div>
-	<transform-to-json id="arraytransformer" format="tsv" array></transform-to-json>
+	<transform-to-json id="arraytransformer" format="tsv" url="rawdata_2001.txt" array></transform-to-json>
 	
 	<script>
 	window.addEventListener('polymer-ready', function(){
@@ -42,11 +39,6 @@
 		var arraytransformer = document.getElementById('arraytransformer');
 		arraytransformer.addEventListener('jsonchanged', function(e){ 
 			document.getElementById('arrayoutput').innerHTML = prettyPrintJSON(e.detail);
-		});
-
-		document.getElementById('ajax').addEventListener('core-response', function(e){
-			jsontransformer.input = e.detail.response;
-			arraytransformer.input = e.detail.response;
 		});
 	});
 	</script>

@@ -25,7 +25,8 @@
     "convert",
     "transform",
     "parse",
-    "import"
+    "import",
+    "ajax"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#>=0.3.2",
