@@ -14,9 +14,6 @@
 		url: null,
 		format: 'tsv',
 		array: false,
-		created: function(){
-			this.json = [];
-		},
 		ready: function(){
 			var text = this.textContent.trim();
 			if(text.length>0) this.input = text;
@@ -65,8 +62,10 @@
 					console.log('`' + this.format + '` not supported, yet.');
 				}
 			}
-			this.json = data;
-			this.fire('jsonchanged', data);
+			if(this.json != data){
+				this.fire('jsonchanged', data);
+				this.json = data;
+			}
 		}
 	});
 	</script>
