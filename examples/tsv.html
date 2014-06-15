@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+	<title>Convert to JSON</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="../../platform/platform.js"></script>
+	<link rel="import" href="../transform-to-json.html">
+	<link rel="import" href="../../core-ajax/core-ajax.html">
+	<link rel="import" href="index-links.html">
+	<style>
+		.output {
+			overflow-y:scroll;
+			font-family:monospace;
+			width:75%;
+			border:1px solid #666;
+			max-height:200px;
+			white-space: pre;
+		}
+	</style>
+</head>
+<body unresolved>
+	<h1>Tab Separated Values (TSV)</h1>
+
+	<core-ajax id="ajax" auto url="rawdata_2001.txt" handleAs="text"></core-ajax>
+
+	<h3>JSON Output</h3>
+	<div id="jsonoutput" class="output"></div>
+	<transform-to-json id="jsontransformer" format="tsv"></transform-to-json>
+
+	<h3>Array Output</h3>
+	<div id="arrayoutput" class="output"></div>
+	<transform-to-json id="arraytransformer" format="tsv" array></transform-to-json>
+	
+	<script>
+	window.addEventListener('polymer-ready', function(){
+		var jsontransformer = document.getElementById('jsontransformer');
+		jsontransformer.addEventListener('jsonchanged', function(e){ 
+			document.getElementById('jsonoutput').innerHTML = prettyPrintJSON(e.detail);
+		});
+
+		var arraytransformer = document.getElementById('arraytransformer');
+		arraytransformer.addEventListener('jsonchanged', function(e){ 
+			document.getElementById('arrayoutput').innerHTML = prettyPrintJSON(e.detail);
+		});
+
+		document.getElementById('ajax').addEventListener('core-response', function(e){
+			jsontransformer.input = e.detail.response;
+			arraytransformer.input = e.detail.response;
+		});
+	});
+	</script>
+	<index-links page="tsv.html"></index-links>
+</body>
+</html>
