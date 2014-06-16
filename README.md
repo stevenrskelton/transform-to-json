@@ -9,7 +9,7 @@ Polymer Web Component for transforming any text data to JSON:
 
 ## Live Examples
 
-> [Demo](http://files.stevenskelton.ca/transform-to-json/examples/index.html)
+> [Demo](http://files.stevenskelton.ca/transform-to-json/examples/demo.html)
 
 > [Inlined Content](http://files.stevenskelton.ca/transform-to-json/examples/inline.html)
 
