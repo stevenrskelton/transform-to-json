@@ -5,7 +5,7 @@ Polymer Web Component for transforming any text data to JSON:
 - CSV _(Comma-Separated Values)_,
 - TSV _(Tab-Separacted Values)_,
 - SSV _(Space-Separacted Values)_,
-- fixed-width columns
+- Fixed-Width Values
 
 ## Live Examples
 
@@ -39,7 +39,7 @@ Polymer Web Component for transforming any text data to JSON:
 
 	```html
 	<transform-to-json>
-		!-- columns go here -->
+		<!-- columns go here -->
 		<column></column>
 
 		<!-- data can go here -->
@@ -53,13 +53,15 @@ Attribute			| Type			| Default		| Description
 `input`				| *string*		| `null`		| Input text to parse (usually populated via `url` or inlined as content
 `url`				| *string*		| `null`		| URL of data input
 `json`				| *object*		| `null`		| Parsed data output
-`format`			| *string*		| csv			| Format of `input`, allowed values are __csv__,__tsv__,__ssv__,__fixed__
-`array`				| *boolean*		| `false`		| If true, output row fields as an array rather than JSON object (drops field names)
-`firstrownames`		| *boolean*		| `false`		| If true, first row of data is assumed to contain the names of the columns. Use of `column` definitions will override these values.
+`format`			| *string*		| csv			| Format of `input`, allowed values are __csv__, __tsv__, __ssv__, __fixed__
+`array`				| *boolean*		| `false`		| If `true`, output row fields as an array rather than JSON object (will drop field names)
+`firstrownames`		| *boolean*		| `false`		| If `true`, first row of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to override these values.
 
-A `jsonchanged` event will fire whenever `json` changes.  This approach should be used whenever `url` is defined: `input` will be loaded asynchronously via [AJAX](#ajax).
+Any non-whitespace, non-commented text within the `<transform-to-json>` nodes will be treated as `input`.
 
-Any non-whitespace text within the `<transform-to-json>` nodes will be treated as `input`.
+## Events
+
+`jsonchanged` will fire whenever `json` changes.  This approach should be used whenever `url` is defined: `input` will be loaded asynchronously via [AJAX](#ajax).
 
 ## Column Definitions
 
@@ -67,8 +69,8 @@ Column fields can be named and parsed by defining `<column>` elements within the
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`name`				| *string*		| `c*`			| Name of column field, if unspecified it will follow the format `c*` where `* == index of column`.
-`type`				| *string*		| `auto`		| Data type to parse field as: `auto`, `string`, `float`, and `int` are allowed.
+`name`				| *string*		| c_N_			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
+`type`				| *string*		| auto			| Data type to parse field as: `auto`, `string`, `float`, and `int` are allowed.
 
 __Notes:__
 - Not specifying a column `type` (ie: using `auto`) can result in the same column having mixed types (ie: both string and numerical fields) in different rows.
@@ -78,7 +80,7 @@ __Notes:__
 ## Todo
 
 - more advanced CSV parsing allowing for separator escaping and newlines
-- fixed-width columns not implemented
+- fixed-width values not implemented
 
 ## History
 
