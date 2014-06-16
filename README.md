@@ -69,7 +69,7 @@ Column fields can be named and parsed by defining `<column>` elements within the
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`name`				| *string*		| c_N_			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
+`name`				| *string*		| cN			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
 `type`				| *string*		| auto			| Data type to parse field as: `auto`, `string`, `float`, and `int` are allowed.
 
 __Notes:__
