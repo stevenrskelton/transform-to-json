@@ -5,15 +5,16 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../core-ajax/core-ajax.html">
 
-<polymer-element name="transform-to-json" attributes="input json format array url">
+<polymer-element name="transform-to-json" attributes="input json format array url firstrownames">
 	<template>
 		<core-ajax auto url="{{url}}" handleAs="text" on-core-response="{{handleResponse}}"></core-ajax>
 	</template>
 	<script>
 	Polymer('transform-to-json', {
 		url: null,
-		format: 'tsv',
+		format: 'csv',
 		array: false,
+		firstrownames: false,
 		ready: function(){
 			var text = this.textContent.trim();
 			if(text.length>0) this.input = text;
@@ -21,45 +22,80 @@
 		handleResponse: function(e,data,obj){
 			this.input = data.response;
 		},
+		columns: function(){
+			return this.querySelectorAll('column').array();
+		},
+		columnTypes: {
+			int: function(v){
+				return parseInt(v.replace('$','').replace(/,/g,''));
+			},
+			float: function(v){
+				return parseFloat(v.replace('$','').replace(/,/g,''));
+			},
+			string: function(v){
+				return v.trim();
+			}
+		},
 		arrayChanged: function(){ this.inputChanged(null,this.input); },
 		formatChanged: function(){ this.inputChanged(null,this.input); },
 		inputChanged: function(old,input){
 			var data;
 			if(input){
+				//apply columns
+				var columns = this.columns();
+				var columnNames = [];
+				var columnTypes = [];
+				columns.forEach(function(currentValue,index,array){
+					var name = currentValue.getAttribute('name');
+					if(name) columnNames[index] = name;
+					var type = currentValue.getAttribute('type');
+					if(type) columnTypes[index] = type;
+				});
+
 				var lines = input.trim().replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
 
 				if(typeof this.format === 'function'){
 					data = lines.map(this.format);
-				}else if(this.format == 'tsv'){
-					if(this.array){
-						data = lines.map(function(currentValue,index,array){
-							return currentValue.split('\t');
-						});
-					}else{
-						data = lines.map(function(currentValue,index,array){
-							var fields = currentValue.split('\t');
-							var obj = {};
-							fields.forEach(function(currentValueF,indexF,arrayF){
-								obj['v'+indexF] = currentValueF;
-							});
-							return obj;
-						});
-					}
-				}else if(this.format == 'ssv'){
-					data = lines.map(function(currentValue,index,array){
-						return currentValue.split(' ').map(function(v){ return +v; });
-					});
-					if(!this.array){
-						data = data.map(function(currentValue,index,array){
-							var obj = {};
-							currentValue.forEach(function(currentValueC,indexC,arrayC){
-								obj['c'+indexC] = currentValueC;
-							});
-							return obj;
-						});
-					}
 				}else{
-					console.log('`' + this.format + '` not supported, yet.');
+					var splitChar;
+					switch (this.format) {
+						case 'tsv' : splitChar = '\t'; break;
+						case 'ssv' : splitChar = ' '; break;
+						case 'csv' : splitChar = ','; break;
+						default :
+							console.log('`' + this.format + '` not supported, yet.');
+							return;
+					}
+
+					if(this.firstrownames){
+						var namesLine = lines.splice(0,1)[0].split(splitChar);
+						namesLine.forEach(function(currentValue,index,array){
+							if(currentValue!="" && !columnNames[index]) columnNames[index] = currentValue;
+						});
+					}
+
+					data = lines.map(function(currentValue,index,array){
+						return currentValue.split(splitChar);
+					});
+
+					var arrayOutput = this.array;
+					var columnTypeTransforms = this.columnTypes;
+					data = data.map(function(m,i,a){
+						var obj = {};
+						var arr = [];
+						m.forEach(function(currentValue,index,array){
+							var val = currentValue;
+							if(columnTypes[index] && columnTypes[index]!='auto'){
+								val = columnTypeTransforms[columnTypes[index]](val);
+							}else{
+								if(+val == val) val = +val;
+							}
+							obj[columnNames[index] || 'c'+index] = val;
+							arr[index] = val;
+						});
+						if(arrayOutput) return arr;
+						else return obj;
+					});
 				}
 			}
 			if(this.json != data){

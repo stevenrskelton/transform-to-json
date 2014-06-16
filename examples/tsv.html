@@ -19,26 +19,47 @@
 	</style>
 </head>
 <body unresolved>
-	<h1>Tab Separated Values (TSV)</h1>
+	<h1>Tab-Separated Values (TSV)</h1>
 
 	<h3>JSON Output</h3>
+	<pre>&lt;transform-to-json format="tsv" url="rawdata_2001.txt"&gt;</pre>
 	<div id="jsonoutput" class="output"></div>
 	<transform-to-json id="jsontransformer" format="tsv" url="rawdata_2001.txt"></transform-to-json>
 
 	<h3>Array Output</h3>
+	<pre>&lt;transform-to-json format="tsv" url="rawdata_2001.txt" array&gt;</pre>
 	<div id="arrayoutput" class="output"></div>
 	<transform-to-json id="arraytransformer" format="tsv" url="rawdata_2001.txt" array></transform-to-json>
-	
+
+	<h2>Defined Columns</h2>
+
+	<pre>&lt;transform-to-json format="tsv" url="rawdata_2001.txt"&gt;
+	&lt;column name="rank" type="int"&gt;&lt;/column&gt;
+	&lt;column name="country" type="string"&gt;&lt;/column&gt;
+	&lt;column name="value" type="int"&gt;&lt;/column&gt;
+&lt;/transform-to-json&gt;</pre>
+	<div id="definedoutput" class="output"></div>
+	<transform-to-json id="definedtransformer" format="tsv" url="rawdata_2001.txt">
+		<column name="rank" type="int"></column>
+		<column name="country" type="string"></column>
+		<column name="value" type="int"></column>
+	</transform-to-json>
+
 	<script>
 	window.addEventListener('polymer-ready', function(){
 		var jsontransformer = document.getElementById('jsontransformer');
-		jsontransformer.addEventListener('jsonchanged', function(e){ 
+		jsontransformer.addEventListener('jsonchanged', function(e){
 			document.getElementById('jsonoutput').innerHTML = prettyPrintJSON(e.detail);
 		});
 
 		var arraytransformer = document.getElementById('arraytransformer');
-		arraytransformer.addEventListener('jsonchanged', function(e){ 
+		arraytransformer.addEventListener('jsonchanged', function(e){
 			document.getElementById('arrayoutput').innerHTML = prettyPrintJSON(e.detail);
+		});
+
+		var definedtransformer = document.getElementById('definedtransformer');
+		definedtransformer.addEventListener('jsonchanged', function(e){
+			document.getElementById('definedoutput').innerHTML = prettyPrintJSON(e.detail);
 		});
 	});
 	</script>

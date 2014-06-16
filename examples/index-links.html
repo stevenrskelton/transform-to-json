@@ -22,8 +22,9 @@
 		example: [
 			{ href:"index.html", name:"Basic" },
 			{ href:"inline.html", name: "Inlined Input" },
-			{ href:"tsv.html", name: "Tab Separated Values" },
-			{ href:"ssv.html", name: "Space Separated Values" }
+			{ href:"csv.html", name: "Comma-Separated Values" },
+			{ href:"tsv.html", name: "Tab-Separated Values" },
+			{ href:"ssv.html", name: "Space-Separated Values" }
 		]
 	});
 	</script>
@@ -32,7 +33,7 @@
 	function prettyPrintJSON(json){
 		var inner = JSON.stringify(json);
 		var isArray = inner[1] == '[';
-		inner = inner[0] + '\n  ' + inner.substring(1,inner.length-2) + '\n' + inner[inner.length-1];
+		inner = inner[0] + '\n  ' + inner.substring(1,inner.length-1) + '\n' + inner[inner.length-1];
 		if(isArray) return inner.replace(/\]\,\[/g,'],\n  [');
 		else return inner.replace(/\}\,\{/g,'},\n  {');
 	}

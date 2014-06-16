@@ -11,12 +11,15 @@
 <body unresolved>
 	<h1>Inline Content</h1>
 
-	Read in input from inlined content between the &lt;transform-to-json&gt; tags.
-
-	<p>
+	Read in input from inlined content between the <code>&lt;transform-to-json&gt;</code> tags.
 
 	<pre>
 &lt;transform-to-json&gt;
+	&lt;column name="rank" type="int"&gt;&lt;/column&gt;
+	&lt;column name="country" type="string"&gt;&lt;/column&gt;
+	&lt;column name="value" type="int"&gt;&lt;/column&gt;
+
+&lt;--data goes here, comments are ignored --&gt;
 1	United States	$   16,720,000,000,000
 2	European Union	$   15,850,000,000,000
 3	China	$   13,390,000,000,000
@@ -28,13 +31,12 @@
 &lt;/transform-to-json&gt;
 	</pre>
 
-	<strong style="font-size:larger;">Output</strong>
-	<input type="radio" name="outputformat" id="outputarray" value="array" onchange="document.getElementById('transformer').array = true;"><label for="outputarray">Array</label>
-	<input checked type="radio" name="outputformat" id="outputjson" value="json" onchange="document.getElementById('transformer').array = false;"><label for="outputjson">JSON</label>
-
-	<pre id="output" style="font-family:monospace"></pre>
-
 	<transform-to-json id="transformer">
+		<column name="rank" type="int"></column>
+		<column name="country" type="string"></column>
+		<column name="value" type="int"></column>
+
+		<!-- data goes here, comments are ignored -->
 1	United States	$   16,720,000,000,000
 2	European Union	$   15,850,000,000,000
 3	China	$   13,390,000,000,000
@@ -45,9 +47,20 @@
 8	Brazil	$    2,416,000,000,000
 	</transform-to-json>
 
+	<hr>
+
+	<h3 style="display:inline;">Output</h3>
+	<input type="radio" name="outputformat" id="outputarray" value="array" onchange="document.getElementById('transformer').array = true;">
+	<label for="outputarray">Array</label>
+
+	<input checked type="radio" name="outputformat" id="outputjson" value="json" onchange="document.getElementById('transformer').array = false;">
+	<label for="outputjson">JSON</label>
+
+	<pre id="output" style="font-family:monospace"></pre>
+
 	<script>
 	window.addEventListener('polymer-ready', function(){
-		document.getElementById('transformer').addEventListener('jsonchanged', function(e){ 
+		document.getElementById('transformer').addEventListener('jsonchanged', function(e){
 			document.getElementById('output').innerHTML = prettyPrintJSON(e.detail);
 		});
 		document.getElementById('output').innerHTML = prettyPrintJSON(document.getElementById('transformer').json);
