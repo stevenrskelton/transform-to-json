@@ -2,7 +2,7 @@
   "name": "transform-to-json",
   "version": "0.2.0",
   "homepage": "https://github.com/stevenrskelton/transform-to-json",
-  "description": "Polymer Web Component for transforming data of different data formats to JSON",
+  "description": "Polymer Web Component for transforming data of different formats to JSON",
   "main": "transform-to-json.html",
   "authors": [
     "Steven Skelton"
