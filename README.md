@@ -50,12 +50,12 @@ Polymer Web Component for transforming any text data to JSON:
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`input`				| *string*		| `null`		| Input text to parse (usually populated via `url` or inlined as content
-`url`				| *string*		| `null`		| URL of data input
-`json`				| *object*		| `null`		| Parsed data output
+`input`				| *string*		| `null`		| Input to parse (can also be populated via `url` or inlined)
+`url`				| *string*		| `null`		| URL of input
+`json`				| *object*		| `null`		| Parsed output
 `format`			| *string*		| csv			| Format of `input`, allowed values are __csv__, __tsv__, __ssv__, __fixed__
-`array`				| *boolean*		| `false`		| If `true`, output row fields as an array rather than JSON object (will drop field names)
-`firstrownames`		| *boolean*		| `false`		| If `true`, first row of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to override these values.
+`array`				| *boolean*		| `false`		| If `true`, output JSON array rather than JSON object (will drop property names)
+`firstrownames`		| *boolean*		| `false`		| If `true`, first line of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to override these values.
 
 Any non-whitespace, non-commented text within the `<transform-to-json>` nodes will be treated as `input`.
 
@@ -65,12 +65,12 @@ Any non-whitespace, non-commented text within the `<transform-to-json>` nodes wi
 
 ## Column Definitions
 
-Column fields can be named and parsed by defining `<column>` elements within the contents of the `<transform-to-json>` element body.
+Column fields can be named and parsed by defining `<column>` elements inside the `<transform-to-json>` HTML element.
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
 `name`				| *string*		| cN			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
-`type`				| *string*		| auto			| Data type to parse field as: `auto`, `string`, `float`, and `int` are allowed.
+`type`				| *string*		| auto			| Parse as type: `auto`, `string`, `float`, and `int` are allowed.
 
 __Notes:__
 - Not specifying a column `type` (ie: using `auto`) can result in the same column having mixed types (ie: both string and numerical fields) in different rows.
