@@ -44,7 +44,7 @@ Polymer Web Component for transforming any text data to JSON:
 		<!-- columns go here -->
 		<column></column>
 
-		<!-- data can go here -->
+		<!-- data can go here or you can use AJAX -->
 	</transform-to-json>
 	```
 
