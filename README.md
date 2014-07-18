@@ -81,7 +81,7 @@ __Notes:__
 
 ## Todo
 
-- more advanced CSV parsing allowing for separator escaping and newlines
+- implement CSV parsing using [CSV.js](https://github.com/knrz/CSV.js) library
 - fixed-width values not implemented
 
 ## History
