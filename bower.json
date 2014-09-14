@@ -1,8 +1,8 @@
 {
   "name": "transform-to-json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/stevenrskelton/transform-to-json",
-  "description": "Polymer Web Component for transforming CSV and other formats to JSON",
+  "description": "Polymer Web Component for transforming CSV and other formats to JSON and arrays.",
   "main": "transform-to-json.html",
   "authors": [
     "Steven Skelton"
@@ -26,10 +26,11 @@
     "transform",
     "parse",
     "import",
-    "ajax"
+    "RFC 4180"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.2",
-    "core-elements": "Polymer/core-elements#>=0.3.2"
+    "polymer": "Polymer/polymer#>=0.4.0",
+    "core-elements": "Polymer/core-elements#>=0.4.0",
+    "comma-separated-values": "comma-separated-values#>=3.6.0"
   }
 }

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<head>
+	<title>Transform-to-JSON</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="../../platform/platform.js"></script>
+	<link rel="import" href="../transform-to-json.html">
+	<link rel="import" href="index-links.html">
+	<style>
+		table {
+			border-collapse: collapse;
+			/*width: 600px;*/
+			margin-left: 30px;
+		}
+		td {
+			border: 1px solid #ddd;
+			white-space: nowrap;
+		}
+		.paramType { color: #ddd }
+	</style>
+</head>
+<body unresolved>
+	<h1>Column Options</h1>
+
+	Specifying columns with <code>column</code> nodes optional.<br>
+	Column headers can be in embedded in the first row of data, be auto-generated as numbers, or omitted entirely when returning an array.
+
+	<p>
+
+	<code>column</code> nodes have 2 fields:
+	<pre>
+	&lt;transform-to-json&gt;
+		&lt;column <strong>name</strong>=<span class="paramType">[String]</span> <strong>type</strong>=<span class="paramType">[DataType]</span>&gt;&lt;/column&gt;
+		<em>&lt;!-- zero or more columns --&gt;</em>
+	&lt;/transform-to-json&gt;</pre>
+
+	<h2>DataType</h2>
+	Valid values are <strong>Number</strong>, <strong>Boolean</strong>, and <strong>String</strong>; as well as <strong>Number?</strong>, <strong>Integer?</strong>, and <strong>String?</strong><br>
+
+	The values <strong>Number</strong>, <strong>Boolean</strong>, and <strong>String</strong> are well optimized, and expect clean conversion.
+	Any unconvertable data will result in an <code>NaN</code> for that field.
+
+	<p>
+
+	<strong>Number?</strong> will try its best to convert to a number, by stripping non-numeric characters.<br>
+	<strong>Integer?</strong> same as Number?, but will also round to the nearest integer.<br>
+	<strong>String?</strong> will trim whitespace from the beginning and end.<br>
+
+	<p>
+
+	<template is="auto-binding">
+		<table>
+			<tr>
+				<th>Input</th><th>No Type</th><th>Boolean</th><th>String</th><th>String?</th><th>Number</th><th>Number?</th><th>Integer?</th>
+			</tr>
+			<tr>
+				<td><em>empty</em></td>
+				<td>{{demo1_0}}<transform-to-json json="{{demo1_0}}" array input=""></transform-to-json></td>
+				<td>{{demo1_1}}<transform-to-json json="{{demo1_1}}" array input=""><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo1_2}}<transform-to-json json="{{demo1_2}}" array input=""><column type="String"></column></transform-to-json></td>
+				<td>{{demo1_3}}<transform-to-json json="{{demo1_3}}" array input=""><column type="String?"></column></transform-to-json></td>
+				<td>{{demo1_4}}<transform-to-json json="{{demo1_4}}" array input=""><column type="Number"></column></transform-to-json></td>
+				<td>{{demo1_5}}<transform-to-json json="{{demo1_5}}" array input=""><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo1_6}}<transform-to-json json="{{demo1_6}}" array input=""><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td><em>space</em></td>
+				<td>{{demo2_0}}<transform-to-json json="{{demo2_0}}" array input=" "></transform-to-json></td>
+				<td>{{demo2_1}}<transform-to-json json="{{demo2_1}}" array input=" "><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo2_2}}<transform-to-json json="{{demo2_2}}" array input=" "><column type="String"></column></transform-to-json></td>
+				<td>{{demo2_3}}<transform-to-json json="{{demo2_3}}" array input=" "><column type="String?"></column></transform-to-json></td>
+				<td>{{demo2_4}}<transform-to-json json="{{demo2_4}}" array input=" "><column type="Number"></column></transform-to-json></td>
+				<td>{{demo2_5}}<transform-to-json json="{{demo2_5}}" array input=" "><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo2_6}}<transform-to-json json="{{demo2_6}}" array input=" "><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>null</td>
+				<td>{{demo3_0}}<transform-to-json json="{{demo3_0}}" array input="null"></transform-to-json></td>
+				<td>{{demo3_1}}<transform-to-json json="{{demo3_1}}" array input="null"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo3_2}}<transform-to-json json="{{demo3_2}}" array input="null"><column type="String"></column></transform-to-json></td>
+				<td>{{demo3_3}}<transform-to-json json="{{demo3_3}}" array input="null"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo3_4}}<transform-to-json json="{{demo3_4}}" array input="null"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo3_5}}<transform-to-json json="{{demo3_5}}" array input="null"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo3_6}}<transform-to-json json="{{demo3_6}}" array input="null"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>ABCD</td>
+				<td>{{demo4_0}}<transform-to-json json="{{demo4_0}}" array input="ABCD"></transform-to-json></td>
+				<td>{{demo4_1}}<transform-to-json json="{{demo4_1}}" array input="ABCD"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo4_2}}<transform-to-json json="{{demo4_2}}" array input="ABCD"><column type="String"></column></transform-to-json></td>
+				<td>{{demo4_3}}<transform-to-json json="{{demo4_3}}" array input="ABCD"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo4_4}}<transform-to-json json="{{demo4_4}}" array input="ABCD"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo4_5}}<transform-to-json json="{{demo4_5}}" array input="ABCD"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo4_6}}<transform-to-json json="{{demo4_6}}" array input="ABCD"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;ABCD&nbsp;&nbsp;&nbsp;EF&nbsp;&nbsp;_&nbsp;</td>
+				<td>{{demo5_0}}<transform-to-json json="{{demo5_0}}" array input="   ABCD   EF  _ "></transform-to-json></td>
+				<td>{{demo5_1}}<transform-to-json json="{{demo5_1}}" array input="   ABCD   EF  _ "><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo5_2}}<transform-to-json json="{{demo5_2}}" array input="   ABCD   EF  _ "><column type="String"></column></transform-to-json></td>
+				<td>{{demo5_3}}<transform-to-json json="{{demo5_3}}" array input="   ABCD   EF  _ "><column type="String?"></column></transform-to-json></td>
+				<td>{{demo5_4}}<transform-to-json json="{{demo5_4}}" array input="   ABCD   EF  _ "><column type="Number"></column></transform-to-json></td>
+				<td>{{demo5_5}}<transform-to-json json="{{demo5_5}}" array input="   ABCD   EF  _ "><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo5_6}}<transform-to-json json="{{demo5_6}}" array input="   ABCD   EF  _ "><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>10000</td>
+				<td>{{demo6_0}}<transform-to-json json="{{demo6_0}}" array input="10000"></transform-to-json></td>
+				<td>{{demo6_1}}<transform-to-json json="{{demo6_1}}" array input="10000"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo6_2}}<transform-to-json json="{{demo6_2}}" array input="10000"><column type="String"></column></transform-to-json></td>
+				<td>{{demo6_3}}<transform-to-json json="{{demo6_3}}" array input="10000"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo6_4}}<transform-to-json json="{{demo6_4}}" array input="10000"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo6_5}}<transform-to-json json="{{demo6_5}}" array input="10000"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo6_6}}<transform-to-json json="{{demo6_6}}" array input="10000"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>9.45</td>
+				<td>{{demo7_0}}<transform-to-json json="{{demo7_0}}" array input="9.45"></transform-to-json></td>
+				<td>{{demo7_1}}<transform-to-json json="{{demo7_1}}" array input="9.45"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo7_2}}<transform-to-json json="{{demo7_2}}" array input="9.45"><column type="String"></column></transform-to-json></td>
+				<td>{{demo7_3}}<transform-to-json json="{{demo7_3}}" array input="9.45"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo7_4}}<transform-to-json json="{{demo7_4}}" array input="9.45"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo7_5}}<transform-to-json json="{{demo7_5}}" array input="9.45"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo7_6}}<transform-to-json json="{{demo7_6}}" array input="9.45"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>9.55</td>
+				<td>{{demo8_0}}<transform-to-json json="{{demo8_0}}" array input="9.55"></transform-to-json></td>
+				<td>{{demo8_1}}<transform-to-json json="{{demo8_1}}" array input="9.55"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo8_2}}<transform-to-json json="{{demo8_2}}" array input="9.55"><column type="String"></column></transform-to-json></td>
+				<td>{{demo8_3}}<transform-to-json json="{{demo8_3}}" array input="9.55"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo8_4}}<transform-to-json json="{{demo8_4}}" array input="9.55"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo8_5}}<transform-to-json json="{{demo8_5}}" array input="9.55"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo8_6}}<transform-to-json json="{{demo8_6}}" array input="9.55"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>-1e5</td>
+				<td>{{demo9_0}}<transform-to-json json="{{demo9_0}}" array input="-1e5"></transform-to-json></td>
+				<td>{{demo9_1}}<transform-to-json json="{{demo9_1}}" array input="-1e5"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo9_2}}<transform-to-json json="{{demo9_2}}" array input="-1e5"><column type="String"></column></transform-to-json></td>
+				<td>{{demo9_3}}<transform-to-json json="{{demo9_3}}" array input="-1e5"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo9_4}}<transform-to-json json="{{demo9_4}}" array input="-1e5"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo9_5}}<transform-to-json json="{{demo9_5}}" array input="-1e5"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo9_6}}<transform-to-json json="{{demo9_6}}" array input="-1e5"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>-1e-10</td>
+				<td>{{demo10_0}}<transform-to-json json="{{demo10_0}}" array input="-1e-10"></transform-to-json></td>
+				<td>{{demo10_1}}<transform-to-json json="{{demo10_1}}" array input="-1e-10"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo10_2}}<transform-to-json json="{{demo10_2}}" array input="-1e-10"><column type="String"></column></transform-to-json></td>
+				<td>{{demo10_3}}<transform-to-json json="{{demo10_3}}" array input="-1e-10"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo10_4}}<transform-to-json json="{{demo10_4}}" array input="-1e-10"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo10_5}}<transform-to-json json="{{demo10_5}}" array input="-1e-10"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo10_6}}<transform-to-json json="{{demo10_6}}" array input="-1e-10"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>$ 100,000s00</td>
+				<td>{{demo11_0}}<transform-to-json json="{{demo11_0}}" array format="tsv" input="$ 100,000s00"></transform-to-json></td>
+				<td>{{demo11_1}}<transform-to-json json="{{demo11_1}}" array format="tsv" input="$ 100,000s00"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo11_2}}<transform-to-json json="{{demo11_2}}" array format="tsv" input="$ 100,000s00"><column type="String"></column></transform-to-json></td>
+				<td>{{demo11_3}}<transform-to-json json="{{demo11_3}}" array format="tsv" input="$ 100,000s00"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo11_4}}<transform-to-json json="{{demo11_4}}" array format="tsv" input="$ 100,000s00"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo11_5}}<transform-to-json json="{{demo11_5}}" array format="tsv" input="$ 100,000s00"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo11_6}}<transform-to-json json="{{demo11_6}}" array format="tsv" input="$ 100,000s00"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>true</td>
+				<td>{{demo12_0}}<transform-to-json json="{{demo12_0}}" array input="true"></transform-to-json></td>
+				<td>{{demo12_1}}<transform-to-json json="{{demo12_1}}" array input="true"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo12_2}}<transform-to-json json="{{demo12_2}}" array input="true"><column type="String"></column></transform-to-json></td>
+				<td>{{demo12_3}}<transform-to-json json="{{demo12_3}}" array input="true"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo12_4}}<transform-to-json json="{{demo12_4}}" array input="true"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo12_5}}<transform-to-json json="{{demo12_5}}" array input="true"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo12_6}}<transform-to-json json="{{demo12_6}}" array input="true"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>false</td>
+				<td>{{demo13_0}}<transform-to-json json="{{demo13_0}}" array input="false"></transform-to-json></td>
+				<td>{{demo13_1}}<transform-to-json json="{{demo13_1}}" array input="false"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo13_2}}<transform-to-json json="{{demo13_2}}" array input="false"><column type="String"></column></transform-to-json></td>
+				<td>{{demo13_3}}<transform-to-json json="{{demo13_3}}" array input="false"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo13_4}}<transform-to-json json="{{demo13_4}}" array input="false"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo13_5}}<transform-to-json json="{{demo13_5}}" array input="false"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo13_6}}<transform-to-json json="{{demo13_6}}" array input="false"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>{{demo14_0}}<transform-to-json json="{{demo14_0}}" array input="1"></transform-to-json></td>
+				<td>{{demo14_1}}<transform-to-json json="{{demo14_1}}" array input="1"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo14_2}}<transform-to-json json="{{demo14_2}}" array input="1"><column type="String"></column></transform-to-json></td>
+				<td>{{demo14_3}}<transform-to-json json="{{demo14_3}}" array input="1"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo14_4}}<transform-to-json json="{{demo14_4}}" array input="1"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo14_5}}<transform-to-json json="{{demo14_5}}" array input="1"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo14_6}}<transform-to-json json="{{demo14_6}}" array input="1"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>{{demo15_0}}<transform-to-json json="{{demo15_0}}" array input="0"></transform-to-json></td>
+				<td>{{demo15_1}}<transform-to-json json="{{demo15_1}}" array input="0"><column type="Boolean"></column></transform-to-json></td>
+				<td>{{demo15_2}}<transform-to-json json="{{demo15_2}}" array input="0"><column type="String"></column></transform-to-json></td>
+				<td>{{demo15_3}}<transform-to-json json="{{demo15_3}}" array input="0"><column type="String?"></column></transform-to-json></td>
+				<td>{{demo15_4}}<transform-to-json json="{{demo15_4}}" array input="0"><column type="Number"></column></transform-to-json></td>
+				<td>{{demo15_5}}<transform-to-json json="{{demo15_5}}" array input="0"><column type="Number?"></column></transform-to-json></td>
+				<td>{{demo15_6}}<transform-to-json json="{{demo15_6}}" array input="0"><column type="Integer?"></column></transform-to-json></td>
+			</tr>
+		</table>
+	</template>
+
+	<index-links page="column-options.html"></index-links>
+</body>
+</html>

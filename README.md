@@ -5,11 +5,15 @@ Polymer Web Component for transforming any text data to JSON:
 - CSV _(Comma-Separated Values)_,
 - TSV _(Tab-Separacted Values)_,
 - SSV _(Space-Separacted Values)_,
-- Fixed-Width Values
+- ~Fixed-Width Values~
+
+Basically a web component wrapper over Kash Nouroozi's [CSV.js](https://github.com/knrz/CSV.js) library.
 
 ## Live Examples
 
 > [Demo](http://files.stevenskelton.ca/transform-to-json/examples/demo.html)
+
+> [Column Options](http://files.stevenskelton.ca/transform-to-json/examples/column-options.html)
 
 > [Inlined Content](http://files.stevenskelton.ca/transform-to-json/examples/inline.html)
 
@@ -55,7 +59,7 @@ Attribute			| Type			| Default		| Description
 `input`				| *string*		| `null`		| Input to parse (can also be populated via `url` or inlined)
 `url`				| *string*		| `null`		| URL of input
 `json`				| *object*		| `null`		| Parsed output
-`format`			| *string*		| csv			| Format of `input`, allowed values are __csv__, __tsv__, __ssv__, __fixed__
+`format`			| *string*		| csv			| Format of `input`, allowed values are __csv__, __tsv__, __ssv__, ~__fixed__~
 `array`				| *boolean*		| `false`		| If `true`, output JSON array rather than JSON object (will drop property names)
 `firstrownames`		| *boolean*		| `false`		| If `true`, first line of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to override these values.
 
@@ -63,7 +67,7 @@ Any non-whitespace, non-commented text within the `<transform-to-json>` nodes wi
 
 ## Events
 
-`jsonchanged` will fire whenever `json` changes.  This approach should be used whenever `url` is defined: `input` will be loaded asynchronously via [AJAX](#ajax).
+`jsonchanged` will fire whenever `json` changes.  Useful whenever `url` is defined as `input` will be loaded asynchronously via [AJAX](#ajax).
 
 ## Column Definitions
 
@@ -71,17 +75,16 @@ Column fields can be named and parsed by defining `<column>` elements inside the
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`name`				| *string*		| cN			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
-`type`				| *string*		| auto			| Parse as type: `auto`, `string`, `float`, and `int` are allowed.
+`name`				| *string*		| c_N_			| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, they will be named with the pattern `cN` where _N_ is the column index.
+`type`				| *string*		| _auto_		| Parse as type: `String`,`String?`,`Number`,`Number?`,`Integer?`, or `Boolean` are allowed.
+
+There is [more documentation](http://files.stevenskelton.ca/transform-to-json/examples/column-options.html) on `column`.
 
 __Notes:__
-- Not specifying a column `type` (ie: using `auto`) can result in the same column having mixed types (ie: both string and numerical fields) in different rows.
-- `auto` will convert only exact numbers, everything else is assumed a string.
-- `float` or `int` column types will best guess values: by stripping out non-numerical characters, removing whitespace.  Anything that can't be converted will be set to `0`.
+- Not specifying a column `type` can result in the same column having mixed types (ie: both string and numerical fields) in different rows.
 
 ## Todo
 
-- implement CSV parsing using [CSV.js](https://github.com/knrz/CSV.js) library
 - fixed-width values not implemented
 
 ## History
