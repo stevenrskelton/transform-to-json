@@ -1,6 +1,6 @@
 {
   "name": "transform-to-json",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/stevenrskelton/transform-to-json",
   "description": "Polymer Web Component for transforming CSV and other formats to JSON and arrays.",
   "main": "transform-to-json.html",
