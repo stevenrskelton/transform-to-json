@@ -56,12 +56,12 @@ Basically a web component wrapper over Kash Nouroozi's [CSV.js](https://github.c
 
 Attribute			| Type			| Default		| Description
 ---					| ---			| ---			| ---
-`input`				| *string*		| `null`		| Input to parse (can also be populated via `url` or inlined)
+`input`				| *string*		| `null`		| Input to parse (can be populated via `url` or inlined)
 `url`				| *string*		| `null`		| URL of input
 `json`				| *object*		| `null`		| Parsed output
-`format`			| *string*		| csv			| Format of `input`, allowed values are __csv__, __tsv__, __ssv__, ~~__fixed__~~
+`format`			| *string*		| csv			| Format of `input`, allowed: __csv__, __tsv__, __ssv__, ~~__fixed__~~
 `array`				| *boolean*		| `false`		| If `true`, output JSON array rather than JSON object (will drop property names)
-`firstrownames`		| *boolean*		| `false`		| If `true`, first line of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to override these values.
+`firstrownames`		| *boolean*		| `false`		| If `true`, first line of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to specify names if not included.
 
 Any non-whitespace, non-commented text within the `<transform-to-json>` nodes will be treated as `input`.
 
@@ -73,10 +73,10 @@ Any non-whitespace, non-commented text within the `<transform-to-json>` nodes wi
 
 Column fields can be named and parsed by defining `<column>` elements inside the `<transform-to-json>` HTML element.
 
-Attribute			| Type			| Default		| Description
----					| ---			| ---			| ---
-`name`				| *string*		| 				| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, JSON output will be disabled.
-`type`				| *string*		| _auto_		| Parse as type: `String`,`String?`,`Number`,`Number?`,`Integer?`, or `Boolean` are allowed.
+Attribute			| Type			| Description
+---					| ---			| ---
+`name`				| *string*		| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, JSON output will be disabled.
+`type`				| *string*		| Parse as type: `String`,`String?`,`Number`,`Number?`,`Integer?`, or `Boolean` are allowed.
 
 There is [more documentation](http://files.stevenskelton.ca/transform-to-json/examples/column-options.html) on `column`.
 
