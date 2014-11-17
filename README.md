@@ -89,7 +89,7 @@ __Notes:__
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/stevenrskelton/convert-to-json/releases).
+For detailed changelog, check [Releases](https://github.com/stevenrskelton/transform-to-json/releases).
 
 ## License
 
