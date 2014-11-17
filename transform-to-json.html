@@ -8,7 +8,7 @@
 <link rel="import" href="../core-ajax/core-ajax.html">
 <link rel="import" href="comma-separated-values.html">
 
-<polymer-element name="transform-to-json" attributes="input json format array url firstrownames">
+<polymer-element name="transform-to-json" attributes="input json format array url firstrownames trim">
 	<template>
 		<core-ajax auto url="{{url}}" handleAs="text" on-core-response="{{handleResponse}}"></core-ajax>
 	</template>
@@ -23,6 +23,7 @@
 		columnTypes: [],
 		objMap: null,
 		arrayMap: null,
+		trim: false,
 		ready: function(){
 			var text = this.textContent.trim();
 			if(text.length>0) this.input = text;
@@ -98,6 +99,7 @@
 				};
 				if(!this.array && this.columnNames.length>0) options.header = this.columnNames;
 				if(this.columnTypes.length>0) options.cast = this.columnTypes;
+				if(this.trim) input = input.trimRight();
 				var csv = new CSV(input, options);
 				data = csv.parse();
 				var self = this;

@@ -60,6 +60,7 @@ Attribute			| Type			| Default		| Description
 `url`				| *string*		| `null`		| URL of input
 `json`				| *object*		| `null`		| Parsed output
 `format`			| *string*		| csv			| Format of `input`, allowed: __csv__, __tsv__, __ssv__, ~~__fixed__~~
+`trim`				| *boolean*		| `false`		| If `true`, output will be trimmed right to remove trailing spaces and newlines
 `array`				| *boolean*		| `false`		| If `true`, output JSON array rather than JSON object (will drop property names)
 `firstrownames`		| *boolean*		| `false`		| If `true`, first line of data is assumed to contain the names of the columns. Use [Column Definitions](#column-definitions) to specify names if not included.
 
