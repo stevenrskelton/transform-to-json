@@ -11,17 +11,17 @@ Basically a web component wrapper over Kash Nouroozi's [CSV.js](https://github.c
 
 ## Live Examples
 
-> [Demo](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/demo.html)
+> [Demo](https://stevenrskelton.github.io/transform-to-json/examples/demo.html)
 
-> [Column Options](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/column-options.html)
+> [Column Options](https://stevenrskelton.github.io/transform-to-json/examples/column-options.html)
 
-> [Inlined Content](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/inline.html)
+> [Inlined Content](https://stevenrskelton.github.io/transform-to-json/examples/inline.html)
 
-> [Comma-Separated Values (CSV)](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/csv.html)
+> [Comma-Separated Values (CSV)](https://stevenrskelton.github.io/transform-to-json/examples/csv.html)
 
-> [Tab-Separated Values (TSV)](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/tsv.html)
+> [Tab-Separated Values (TSV)](https://stevenrskelton.github.io/transform-to-json/examples/tsv.html)
 
-> [Space-Separated Columns](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/ssv.html)
+> [Space-Separated Columns](https://stevenrskelton.github.io/transform-to-json/examples/ssv.html)
 
 ## Usage
 
@@ -79,7 +79,7 @@ Attribute			| Type			| Description
 `name`				| *string*		| Name of column field. If columns are unspecified by either a `firstrownames` or `column` definitions, JSON output will be disabled.
 `type`				| *string*		| Parse as type: `String`,`String?`,`Number`,`Number?`,`Integer?`, or `Boolean` are allowed.
 
-There is [more documentation](http://files.stevenskelton.ca/transform-to-json/transform-to-json/examples/column-options.html) on `column`.
+There is [more documentation](https://stevenrskelton.github.io/transform-to-json/examples/column-options.html) on `column`.
 
 __Notes:__
 - Not specifying a column `type` can result in the same column having mixed types (ie: both string and numerical fields) in different rows.
